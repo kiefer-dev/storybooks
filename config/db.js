@@ -6,7 +6,7 @@ const connectDB = async () => {
       //options to get rid of warnings in the console
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false
+      // useFindAndModify: false
     })
 
     console.log(`MongoDB Connected: ${conn.connection.host}`)

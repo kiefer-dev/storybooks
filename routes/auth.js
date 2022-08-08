@@ -19,8 +19,10 @@ router.get(
 // @desc    Logout user
 // @route   /auth/logout
 router.get('/logout', (req, res) => {
-  req.logout()  //passport logout method
-  res.redirect('/') //redirect to homepage after logging out
+  req.logout(function(err) {
+    if (err) { console.error(err); }
+    res.redirect('/') //redirect to homepage after logging out
+  })  //passport logout method
 })
 
 module.exports = router

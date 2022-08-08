@@ -11,7 +11,7 @@ const connectDB = require('./config/db')
 dotenv.config({ path: './config/config.env' })
 
 // Passport config
-require('./config/passport', passport)
+require('./config/passport')(passport)
 
 // Call the db to connect
 connectDB()
@@ -44,6 +44,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Routes
 app.use('/', require('./routes/index'))
+app.use('/auth', require('./routes/auth'))
+
 
 const PORT = process.env.PORT || 3000 //using process.env lets you access variables that are in the config.env file
 

@@ -19,10 +19,11 @@ router.get(
 // @desc    Logout user
 // @route   /auth/logout
 router.get('/logout', (req, res) => {
-  req.logout(function(err) {
-    if (err) { console.error(err); }
+  req.logout(req.user, err => {
+    if (err) { return next(err); }
     res.redirect('/') //redirect to homepage after logging out
   })  //passport logout method
 })
+// https://stackoverflow.com/questions/72336177/error-reqlogout-requires-a-callback-function
 
 module.exports = router

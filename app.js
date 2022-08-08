@@ -1,11 +1,14 @@
 const path = require('path')
 const express = require('express')
+const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
 const passport = require('passport')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')
 const connectDB = require('./config/db')
+
 
 // Load config
 dotenv.config({ path: './config/config.env' })
@@ -29,11 +32,17 @@ app.engine('.hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', '.hbs')
 
 // Sessions middleware
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false, //don't resave if nothing is changed
-  saveUninitialized: false, //don't create session until something is stored
-}))
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: false, //don't resave if nothing is changed
+    saveUninitialized: false, //don't create session until something is stored
+    store: MongoStore.create({ 
+      mongoUrl: process.env.MONGO_URI
+      // https://stackoverflow.com/questions/66654037/mongo-connect-error-with-mongo-connectsession
+    })
+  })
+)
 
 // Passport middleware
 app.use(passport.initialize())

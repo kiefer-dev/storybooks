@@ -33,7 +33,6 @@ if (process.env.NODE_ENV === 'development') {
 
 // Handlebars Helpers
 const { formatDate } = require('./helpers/hbs')
-// Doesn't work... 1:35:00 on video
 
 // Handlebars
 app.engine('.hbs', exphbs.engine({ helpers: { formatDate, },  defaultLayout: 'main', extname: '.hbs' }))

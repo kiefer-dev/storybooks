@@ -22,10 +22,18 @@ connectDB()
 // Initialize app
 const app = express()
 
+// Body parser
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+
 // If you're running in dev mode, log extra info to the console
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
+
+// Handlebars Helpers
+// const { formatDate } = require('./helpers.hbs')
+// Doesn't work... 1:35:00 on video
 
 // Handlebars
 app.engine('.hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
